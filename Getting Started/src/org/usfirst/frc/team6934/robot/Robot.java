@@ -1,7 +1,8 @@
 package org.usfirst.frc.team6934.robot;
 
-// GradleRIO and Intellij IDEA (thats an IDE)
-// ty Leo from eagle engineering
+//from the 2018 ventura regional:
+// Reccomended GradleRIO (smartdashboard replacement) and Intellij IDEA (a good IDE) by EagleStrike
+// ty Leo from eagle engineering (helped with auto :>)
 
 import edu.wpi.first.wpilibj.Compressor;
 import java.util.function.Supplier;
@@ -52,26 +53,28 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
-
+/**
+ * <h1>Robot</h1>
+ * The robot class! This is what you compile and run to use on the roboRio.
+ * The class has about 6 different methods that run at different times.
+ * This class is primarily used to have the user communicate with the software and controls.
+ * Please note that this robot code is currently configured to use the command-base robot system.
+ * For specific information on how the code operates that isn't covered in this javadoc, please
+ * refer to the FRC website.
+ *
+ * @author Joey F. - Team 6934
+ * @version 1.0
+ * @since sometime in the 2018 season...
+ */
 public class Robot extends IterativeRobot {
 	
 	//vars and objects
-	
-	
-	
 	Command autonomousCom;
 	SendableChooser autoChooser;
-	
-	
-	
+
 	private Joystick pad = new Joystick(RobotMap.logitechCont);
 	private Joystick armPad = new Joystick(RobotMap.xboxCont);
-	
-//	WPI_TalonSRX wLeftMotor = new WPI_TalonSRX(RobotMap.leftMotor);
-//	WPI_TalonSRX wRightMotor = new WPI_TalonSRX(RobotMap.rightMotor);
-	
 
-	
 	Compressor comp = new Compressor(RobotMap.compressorModule);
 	
 	
@@ -82,22 +85,25 @@ public class Robot extends IterativeRobot {
 	double backSpinSpeed;
 	double forwardSpinSpeed;
 	
-	public buttonThingyMabobber button;
-	public rightTurn rightButton;
-	public arrm arrrm;
-	public loud scram;
-	public moveArm marm;
-	public moveWheel meel;
+	public leftTurn lTurn;
+	public rightTurn rTurn;
+	public toggleGripper tGrip;
+	public moveArm mArm;
+	public moveWheel mWheel;
 	public spinBack mSpinb;
 	public spinForward mSpinf;
-	public holdArm mharm;
-	public shootSpinner mshoot;
-	
-	public S_arm armSub = new S_arm();
+	public holdArm mHold;
+	public shootSpinner mShoot;
 	
 	//robot stuff
-	
-	@Override
+
+	/**
+	 * Runs <strong>ONCE</strong> as soon as the robot is enabled, whether it be via enaabling the robot on the
+	 * driver station or a tournament match starting. Used to add GUI elements to the smart dashboard
+	 * and populate it with data. Also used to create instances of commands in the robot class for use.
+	 * I highly reccomend trying out GradleRIO as a replacement for smartdashboard due to how finicky
+	 * and unreliable the smartdashboard can be.
+	 */
 	public void robotInit() {
 		
 		autoChooser = new SendableChooser<>();
@@ -109,106 +115,59 @@ public class Robot extends IterativeRobot {
 		
 		autoChooser.getSelected();
 		
-		
-		
-		
 		comp.setClosedLoopControl(true);
 		
-		button = new buttonThingyMabobber();
-		rightButton = new rightTurn();
-		arrrm = new arrm();
-		scram = new loud();
-		marm = new moveArm();
-		meel = new moveWheel();
+		lTurn = new leftTurn();
+		rTurn = new rightTurn();
+		tGrip = new toggleGripper();
+		mArm = new moveArm();
+		mWheel = new moveWheel();
 		mSpinb = new spinBack();
 		mSpinf = new spinForward();
-		mharm = new holdArm();
-		mshoot = new shootSpinner();
+		mHold = new holdArm();
+		mShoot = new shootSpinner();
 		
 		SmartDashboard.putData(Scheduler.getInstance());
-		
-		
-		
-		
 	}
 
-
-	@Override
+	/**
+	 * Runs <strong>ONCE</strong> as soon as the autonomous period starts/is activated via driver station.
+	 * Used to gather currently selected autonomous program from smartdashboard.
+	 */
 	public void autonomousInit() {
-	
-		
-	//Timer.delay();	
-	
+
 	autonomousCom = (Command) autoChooser.getSelected();
 	autonomousCom.start();
-	
-	
+
 	}
 
-	@Override
+	/**
+	 * Runs peridically throughout autonomous period.
+	 */
 	public void autonomousPeriodic() {
 		
 		Scheduler.getInstance().run();
-//		autonomousCom = (CommandGroup) autoChooser.getSelected();
-//		
-//		autonomousCom.start();
-//		
-//	Timer.delay(10);
-		
-	}
-	
-	
-	//forward- speed is motor speed typically -1 to 1 and time is in seconds
-	public void forward(double speed, double time) {
-		
-		//wLeftMotor.set(speed);
-		//wRightMotor.set(-speed);
-		
-		Timer.delay(time);
-		
-		//stop
-		//wLeftMotor.set(0);
-		//wRightMotor.set(0);
-		Timer.delay(0.1);
-		
-	}
-	
-	//turns the robot left! wow!
-	public void leftTurn() {
 
-		//wLeftMotor.set(-0.25);
-		//wRightMotor.set(-0.25);
-		
-		Timer.delay(1);
-		
-		//stop
-		//wLeftMotor.set(0);
-		//wRightMotor.set(0);
-		Timer.delay(0.1);
-		
 	}
-	
-	//turns the robot right! wow!
-	public void rightTurn() {
-		
-		//wLeftMotor.set(0.25);
-		//wRightMotor.set(0.25);
-		
-		Timer.delay(1);
-		
-		//stop
-		//wLeftMotor.set(0);
-		//wRightMotor.set(0);
-		Timer.delay(0.1);
-		
-	}
-	
 
-	@Override
+	/**
+	 * Runs <strong>ONCE</strong> as soon as the teleop period starts/is activated via driver station.
+	 * Currently not used but present nonetheless.
+	 */
 	public void teleopInit() {
 	}
 
-	@Override
+	/**
+	 * Loops throughout the teleop period. Used to draw input from drive train controller and calls movement
+	 * command if non-zero value is detected in either stick. Steering is currently setup with tank controls.
+	 * The drive train controller also can use a button press to turn the drive train ~90 degrees left or right.
+	 * <br>Additionally, this method handles input from the arm controller. First it checks if the overide button is pressed.
+	 * Next it gathers an input for the arm by splitting the arm motor value (-1.0 to 1.0) into 0.5 per analog stick.
+	 * If a non-zero value is detected, the value will be sent to a command that moves the arm. If the input for the
+	 * gripper is detected, the pneumatics are toggled. Next, it reads the controller for spinner input and calls the
+	 * forward spinner command if a non-zero, positive value is detected or backwards spinner command if a non-zero, negative
+	 * value is detected.
+	 */
 	public void teleopPeriodic() {
 		
 		// 
@@ -219,12 +178,9 @@ public class Robot extends IterativeRobot {
 		leftSpeed = pad.getRawAxis(RobotMap.leftAxis);
 		rightSpeed = (-1) * pad.getRawAxis(RobotMap.rightAxis);
 		
-		//wLeftMotor.set(leftSpeed)
-		//wRightMotor.set(rightSpeed);
-		
 		if((pad.getRawAxis(RobotMap.rightAxis) != 0) 
 		|| (pad.getRawAxis(RobotMap.leftAxis) != 0)) {
-			meel.execute(leftSpeed, rightSpeed);
+			mWheel.execute(leftSpeed, rightSpeed);
 			Scheduler.getInstance().run();
 		}
 		
@@ -232,54 +188,39 @@ public class Robot extends IterativeRobot {
 		
 		//left turn
 		if(pad.getRawButtonPressed(RobotMap.leftTurnButton)) {
-			button.execute();
+			lTurn.execute();
 			Scheduler.getInstance().run();
 		}
 		
 		//right turn
 		if(pad.getRawButtonPressed(RobotMap.rightTurnButton)) {
-			rightButton.execute();
+			rTurn.execute();
 			Scheduler.getInstance().run();
 		}
-		
-		
+
 		//
 		// Arm
 		//
 		
-		
 		if(armPad.getRawButton(RobotMap.overrideButton)) {
 			override = true;
 		}
-		
-		
-		//armSpeed = armPad.getRawAxis(RobotMap.armMoveAxis);
-	
+
 		armSpeed = -(((0.5) * ( armPad.getRawAxis(RobotMap.armMoveAxis))) + 
 					(((0.5) * armPad.getRawAxis(RobotMap.armMoveAxis2))) );
 		
-		
-		
-		
-		
 		if(armSpeed != 0) {
-			//System.out.println("total: " + armSpeed);
-			//System.out.println("left: " + armPad.getRawAxis(RobotMap.armMoveAxis2));
-			//System.out.println("right: " + armPad.getRawAxis(RobotMap.armMoveAxis));
-			
-			marm.execute(armSpeed, override);
+			mArm.execute(armSpeed, override);
 			Scheduler.getInstance().run();
 			
 		}
-		
-		
+
 		//pneumatic toggle
 		if(armPad.getRawButtonPressed(RobotMap.gripperButton)) {
-			arrrm.execute();
+			tGrip.execute();
 			Scheduler.getInstance().run();
 		}
-		
-		
+
 		backSpinSpeed = armPad.getRawAxis(RobotMap.backSpinnersAxis);
 		forwardSpinSpeed = armPad.getRawAxis(RobotMap.forwardSpinnersAxis);
 		
@@ -293,23 +234,17 @@ public class Robot extends IterativeRobot {
 			Scheduler.getInstance().run();
 		}
 		
-		
-		//arm hold
-		
-		if(armPad.getRawButton(RobotMap.armHoldButton)) {
-			mharm.execute();
-			Scheduler.getInstance().run();
-		}
-		
 		if(armPad.getRawButton(RobotMap.spinnerShootButton)) {
-			mshoot.execute();
+			mShoot.execute();
 			Scheduler.getInstance().run();
 		}
 		
 	}
 
-
-	@Override
+	/**
+	 * Not gonna lie, I don't even remember when this runs because it wasn't ever useful. It's here
+	 * out of pity.
+	 */
 	public void testPeriodic() {
 	}
 }

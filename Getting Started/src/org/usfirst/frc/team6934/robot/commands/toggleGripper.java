@@ -9,34 +9,48 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * <h1>shootSpinner</h1>
- * Spins spinners at max speed to shoot cube at max speed.
+ * <h1>toggleGripper</h1>
+ * Opens and closes the gripper. Active is a boolean for the pneumatic toggle.
  *
  * @author Joey F. - Team 6934
  * @version 1.0
  * @since sometime in the 2018 season...
  */
-public class shootSpinner extends CommandBase{
+public class toggleGripper extends CommandBase{
+
+	public boolean active;
 
 	/**
 	 * Constructor that requires subsystem.
 	 */
-	public shootSpinner() {
-		super("shootSpinner");
-		requires(sSpin);
+	public toggleGripper() {
+		super("toggleGripper");
+		requires(sGrip);
 	}
 
 	/**
 	 * Required due to inherted abstract methods
 	 */
 	protected void initialize() {
+		active = false;
 	}
 
 	/**
-	 * Spins spinners at max speed to shoot cube at max speed.
+	 * Opens and closes the gripper.
 	 */
 	public void execute() {
-		sSpin.spinnerShoot();
+		
+		if(!active) { //activate
+			active = true;
+			sGrip.open();
+		}
+		else if(active) { //de-activate
+			active = false;
+			sGrip.close();
+		}
+		else {
+		}
+		
 	}
 
 	/**
@@ -59,3 +73,4 @@ public class shootSpinner extends CommandBase{
 	}
 
 }
+//JustinSucks

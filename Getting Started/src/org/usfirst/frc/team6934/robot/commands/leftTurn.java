@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * <h1>rightTurn</h1>
- * Turns the robot 90 degrees to the right.
+ * <h1>leftTurn</h1>
+ * Turns the robot 90 degrees to the left! :)
  *
  * @author Joey F. - Team 6934
  * @version 1.0
  * @since sometime in the 2018 season...
  */
-public class rightTurn extends CommandBase {
+public class leftTurn extends CommandBase{
 
 	WPI_TalonSRX wLeftMotor = new WPI_TalonSRX(RobotMap.leftMotor);
 	WPI_TalonSRX wRightMotor = new WPI_TalonSRX(RobotMap.rightMotor);
@@ -23,8 +23,8 @@ public class rightTurn extends CommandBase {
 	/**
 	 * Default constructor.
 	 */
-	public rightTurn() {
-		super("rightTurn");
+	public buttonThingyMabobber() {
+		super("leftTurn");
 	}
 
 	/**
@@ -34,11 +34,12 @@ public class rightTurn extends CommandBase {
 	}
 
 	/**
-	 * Turns the robot 90 degrees to the right.
+	 * Turns the robot 90 degrees to the left.
 	 */
 	public void execute() {
-		wLeftMotor.set(0.25);
-		wRightMotor.set(0.25);
+		
+		wLeftMotor.set(-0.25);
+		wRightMotor.set(-0.25);
 		
 		Timer.delay(1.5);
 		
