@@ -32,7 +32,7 @@ public class releaseKick extends CommandBase{
 	 * useful in practice.
 	 */
 	public void execute() {
-		sarm.liftArm();
+		sArm.liftArm();
 	}
 
 	/**

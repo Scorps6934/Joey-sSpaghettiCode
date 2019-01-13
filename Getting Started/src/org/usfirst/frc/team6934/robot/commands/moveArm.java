@@ -23,7 +23,7 @@ public class moveArm extends CommandBase {
 	 * Prepares counter for limit switch.
 	 */
 	public void initialize() {
-		sreal.initializeCounter();
+		sArm.initializeCounter();
 	}
 
 	/**
@@ -38,10 +38,10 @@ public class moveArm extends CommandBase {
 		//if switch is set and going up allow to move and reset swithc
 		//else move up or down
 
-		if(sreal.isSwitchSet() && joyAxis < 0 && !overrideSwitch) {
+		if(sArm.isSwitchSet() && joyAxis < 0 && !overrideSwitch) {
 		sArm.armStop();
 		}
-		else if (sreal.isSwitchSet() && joyAxis > 0) {
+		else if (sArm.isSwitchSet() && joyAxis > 0) {
 		sArm.initializeCounter();
 		sArm.armMove(joyAxis);
 		}
@@ -54,7 +54,7 @@ public class moveArm extends CommandBase {
 	 * Turns the robot 90 degrees to the left.
 	 */
 	protected boolean isFinished() {
-		return sreal.isSwitchSet();
+		return sArm.isSwitchSet();
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class moveArm extends CommandBase {
 	 * @return boolean value of if switch has been triggered
 	 */
 	public boolean getLimiSwitch() {
-		return sreal.isSwitchSet();
+		return sArm.isSwitchSet();
 	}
 
 }

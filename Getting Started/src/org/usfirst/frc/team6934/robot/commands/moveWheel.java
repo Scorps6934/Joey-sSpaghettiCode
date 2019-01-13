@@ -29,7 +29,7 @@ public class moveWheel extends CommandBase {
 	 * Moves the robot's drive train.
 	 */
 	public void execute(double lJoyAxis, double rJoyAxis) {
-		swheel.wheelMove(lJoyAxis, rJoyAxis);
+		sWheel.wheelMove(lJoyAxis, rJoyAxis);
 	}
 
 	/**

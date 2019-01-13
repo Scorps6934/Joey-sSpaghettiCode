@@ -23,7 +23,7 @@ public class leftTurn extends CommandBase{
 	/**
 	 * Default constructor.
 	 */
-	public buttonThingyMabobber() {
+	public leftTurn() {
 		super("leftTurn");
 	}
 
