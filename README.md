@@ -1,7 +1,7 @@
 # Joey-sSpaghettiCode
 2018 FRC RobotCode - Scorps6934
 
-Robot updated with javadoc code: [here]
+Robot updated with javadoc code: [here](https://github.com/Scorps6934/Joey-sSpaghettiCode/tree/actually-fixed-for-vscode/GettingStarted/doc)
 
 Changelog from version used during 2018 season:
 
